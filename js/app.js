@@ -50,10 +50,14 @@ function AppViewModel() {
 
   this.locationList = ko.observablearray([]);
 
+  // Foursquare ClientID && ClientSecret
+  ClientID = "ISJFZIOWGYDLS0TDOJBS1RTPJPM4RDYRHO30DHZGUWICMTNN";
+  ClientSecret = "Y1QAZNCN1Q3AAUBB2KZU0ZOSLO3UKMBLORWV5M5BXW33X4YF";
+
   // Initial Map
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 39.305, long: -76.617},
-    zoom: 8
+    zoom: 25
   }):
   // Map Handler
   initLocations.forEach(function(locationItem) {
@@ -81,7 +85,7 @@ function AppViewModel() {
   this.mapElem.style.height = window.innerHeight - 50;
 }
 
-// --- Location information and foursquare API.
+// --- Location information and foursquare URL/JSON.
 
 var location = function(data) {
   // Setting Self
@@ -111,7 +115,31 @@ var location = function(data) {
     alert("There was a problem loading the Foursquare API. Check your connection.")
   });
 
+  // Click
+  this.contentString = '<div class="info-window-content"><div class="title"><b>' + data.name + '</b></div>' +
+  '<div class="content"><a href="' + self.URL +'">' + self.URL + '</a></div>' +
+  '<div class="content">' + self.street + '</div>' +
+  '<div class="content">' + self.city + '</div>' +;
 
+  // Infowindow
+  this.infowindow = new google.maps.InfoWindow({content = self.contentString});
+
+  // Marker
+  this.marker = new google.maps.Marker({
+    position: new google.maps.LatLng(data.lat, data.long),
+    title: data.name,
+    map: map
+  })
+
+  // Show Marker
+  this.showMarker = ko.computed(function() {
+    if(this.visible() === true) {
+      this.marker.setMap(map);
+    } else {
+      this.marker.setMap(null);
+    }
+    return true;
+  }, this);
 }
 
 // --- Initalize Application.
