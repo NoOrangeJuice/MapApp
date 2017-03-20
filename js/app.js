@@ -87,7 +87,7 @@ function AppViewModel() {
 
 // --- Location information and foursquare URL/JSON.
 var location = function(data) {
-  
+
   // Setting Self
   var self = this;
   this.name = data.name;
@@ -143,11 +143,11 @@ var location = function(data) {
 }
 
 // --- Initalize Application.
-function InitializeApplication() {
+function initializeApplication() {
   ko.applybindings(new AppViewModel());
 }
 
 // --- Error Handler.
-function ErrorHandler() {
+function errorHandler() {
   alert("Something has gone wrong, please check your connection and try again.")
 }

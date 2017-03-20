@@ -7,7 +7,7 @@
   <meta name="viewport" content"width=device-width, initial-scale=1">
 </head>
 <body>
-  <div class="six columsn" id="search">
+  <div class="six columns" id="search">
 		<input class="search-box" id="search-box" data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" />
 	</div>
 	<div class="six columns" id="app">
@@ -15,11 +15,13 @@
 			<ul class="results" id="results" data-bind="foreach: filteredList">
 				<li class="place" id="place" data-bind="text: name, click: bounce"></li>
 			</ul>
+    </div>
+  </div>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf77_cKgXy2NheRTmLGFvnK_R8jA9bIwU&callback=InitializeApplication&libraries=places"></script>
   <script src="js/knockout.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/app.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf77_cKgXy2NheRTmLGFvnK_R8jA9bIwU&callback=initializeApplication&libraries=places" onerror="errorHandler"></script>
   <noscript>Sorry... Javascript is needed to proceed.</noscript>
 </body>
 </html>
