@@ -1,5 +1,4 @@
 // --- Initial Location Data.
-
 var initLocations = [
   {
     name: 'Doobys',
@@ -35,16 +34,16 @@ var initLocations = [
 ];
 
 // --- Global Variables.
-
 var ClientID;
 var ClientSecret;
 var map;
 
 // --- View Model.
-
 function AppViewModel() {
+
   // Setting Self
   var self = this
+
   // Declaring Observables
   this.locationInput = ko.observable("");
 
@@ -59,6 +58,7 @@ function AppViewModel() {
     center: {lat: 39.305, long: -76.617},
     zoom: 25
   }):
+
   // Map Handler
   initLocations.forEach(function(locationItem) {
     self.locationList.push( new Location(locationItem));
@@ -86,8 +86,8 @@ function AppViewModel() {
 }
 
 // --- Location information and foursquare URL/JSON.
-
 var location = function(data) {
+  
   // Setting Self
   var self = this;
   this.name = data.name;
@@ -143,13 +143,11 @@ var location = function(data) {
 }
 
 // --- Initalize Application.
-
 function InitializeApplication() {
   ko.applybindings(new AppViewModel());
 }
 
 // --- Error Handler.
-
 function ErrorHandler() {
   alert("Something has gone wrong, please check your connection and try again.")
 }
