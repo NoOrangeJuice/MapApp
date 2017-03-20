@@ -7,21 +7,11 @@
   <meta name="viewport" content"width=device-width, initial-scale=1">
 </head>
 <body>
-  <div class="six columns" id="search">
-		<input class="search-box" id="search-box" data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" />
-	</div>
-	<div class="six columns" id="app">
-		<div class="six columns" id="list">
-			<ul class="results" id="results" data-bind="foreach: filteredList">
-				<li class="place" id="place" data-bind="text: name, click: bounce"></li>
-			</ul>
-    </div>
-  </div>
+ <div class='map'>maps error</div>
 
   <script src="js/knockout.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/app.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf77_cKgXy2NheRTmLGFvnK_R8jA9bIwU&callback=initializeApplication&libraries=places" onerror="errorHandler"></script>
-  <noscript>Sorry... Javascript is needed to proceed.</noscript>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDA6qoUKQ3WJQd4ZxAahhFPM80WJbw-yws&callback=initApp&libraries=places" onerror="errorHandler"></script>
 </body>
 </html>

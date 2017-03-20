@@ -34,56 +34,10 @@ var initLocations = [
 ];
 
 // --- Global Variables.
+var map;
 var ClientID;
 var ClientSecret;
-var map;
 
-// --- View Model.
-function AppViewModel() {
-
-  // Setting Self
-  var self = this
-
-  // Declaring Observables
-  this.locationInput = ko.observable("");
-
-  this.locationList = ko.observablearray([]);
-
-  // Foursquare ClientID && ClientSecret
-  ClientID = "ISJFZIOWGYDLS0TDOJBS1RTPJPM4RDYRHO30DHZGUWICMTNN";
-  ClientSecret = "Y1QAZNCN1Q3AAUBB2KZU0ZOSLO3UKMBLORWV5M5BXW33X4YF";
-
-  // Initial Map
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 39.305, long: -76.617},
-    zoom: 25
-  }):
-
-  // Map Handler
-  initLocations.forEach(function(locationItem) {
-    self.locationList.push( new Location(locationItem));
-  });
-
-  this.filteredList = ko.computed(function () {
-    var filter = self.locationInput().toLowerCase();
-
-    if (!filter) {
-      self.locationList().forEach(function(locationItem) {
-        locationItem.visible(true);
-      });
-      return.self(locationList);
-  } else {
-    return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
-      var string = locationItem.name.toLowerCase();
-      var result = (string.search(filter) >= 0);
-      locationItem.visible(result);
-      return result;
-    });
-    }
-  }, self);
-  this.mapElem = document.getElementById('map');
-  this.mapElem.style.height = window.innerHeight - 50;
-}
 
 // --- Location information and foursquare URL/JSON.
 var location = function(data) {
@@ -119,10 +73,10 @@ var location = function(data) {
   this.contentString = '<div class="info-window-content"><div class="title"><b>' + data.name + '</b></div>' +
   '<div class="content"><a href="' + self.URL +'">' + self.URL + '</a></div>' +
   '<div class="content">' + self.street + '</div>' +
-  '<div class="content">' + self.city + '</div>' +;
+  '<div class="content">' + self.city + '</div>';
 
   // Infowindow
-  this.infowindow = new google.maps.InfoWindow({content = self.contentString});
+  this.infowindow = new google.maps.InfoWindow({content: self.contentString});
 
   // Marker
   this.marker = new google.maps.Marker({
@@ -142,8 +96,55 @@ var location = function(data) {
   }, this);
 }
 
+// --- View Model.
+function AppViewModel() {
+
+  // Setting Self
+  var self = this
+
+  // Declaring Observables
+  this.locationInput = ko.observable("");
+
+  this.locationList = ko.observablearray([]);
+
+  // Foursquare ClientID && ClientSecret
+  ClientID = "ISJFZIOWGYDLS0TDOJBS1RTPJPM4RDYRHO30DHZGUWICMTNN";
+  ClientSecret = "Y1QAZNCN1Q3AAUBB2KZU0ZOSLO3UKMBLORWV5M5BXW33X4YF";
+
+  // Initial Map
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 39.305, long: -76.617},
+    zoom: 12
+  });
+
+  // Map Handler
+  initLocations.forEach(function(locationItem) {
+    self.locationList.push( new Location(locationItem));
+  });
+
+  this.filteredList = ko.computed(function () {
+    var filter = self.locationInput().toLowerCase();
+
+    if (!filter) {
+      self.locationList().forEach(function(locationItem) {
+        locationItem.visible(true);
+      });
+      return self.locationList();
+  } else {
+    return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
+      var string = locationItem.name.toLowerCase();
+      var result = (string.search(filter) >= 0);
+      locationItem.visible(result);
+      return result;
+    });
+    }
+  }, self);
+  this.mapElem = document.getElementById('map');
+  this.mapElem.style.height = window.innerHeight - 50;
+}
+
 // --- Initalize Application.
-function initializeApplication() {
+function initApp() {
   ko.applybindings(new AppViewModel());
 }
 
