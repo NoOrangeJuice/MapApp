@@ -2,16 +2,26 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Bolton Hill Neighborhood Map</title>
+  <title>Bolton Hill Coffee Shops</title>
   <link rel="stylesheet" href="static/main.css">
   <meta name="viewport" content"width=device-width, initial-scale=1">
-</head>
-<body>
- <div class='map'>maps error</div>
-
   <script src="./js/knockout.js"></script>
   <script src="./js/jquery.min.js"></script>
   <script src="./js/app.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4hmPPOArmHqLdqw26ok6dsLNqFOW0Qd0&callback=initApp" onerror="errorHandler"></script>
+  <noscript> Sorry.. You'll need Javascript to continue</noscript>
+</head>
+<body>
+  <div class="app" id="app">
+      <div class="list" id="list">
+        <div class="search" id="search">
+          <input class="searchinput" id="searchinput" data-bind="textInput: locationInput, valueUpdate: 'afterkeydown'"/>
+        </div>
+        <ul class="listcontents" id="listcontents" data-bind="foreach: filteredList">
+          <li class="shops" id="shops" data-bind="text: name, click: bounce"></li>
+        </ul>
+      </div>
+      <div class="map" id="map">maps error</div>
+  </div>
 </body>
 </html>
