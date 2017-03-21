@@ -1,3 +1,5 @@
+'use strict';
+
 // --- Initial Location Data.
 var initLocations = [
   {
@@ -39,8 +41,8 @@ var ClientID;
 var ClientSecret;
 
 
-// --- Location information and foursquare URL/JSON.
-var location = function(data) {
+// --- Location information and foursquare URLJSON.
+var Location = function(data) {
 
   // Setting Self
   var self = this;
@@ -99,13 +101,13 @@ var location = function(data) {
 // --- View Model.
 function AppViewModel() {
 
-  // Setting Self
+  // Setting This
   var self = this
 
   // Declaring Observables
-  this.locationInput = ko.observable("");
+  self.locationInput = ko.observable("");
 
-  this.locationList = ko.observablearray([]);
+  self.locationList = ko.observableArray([]);
 
   // Foursquare ClientID && ClientSecret
   ClientID = "ISJFZIOWGYDLS0TDOJBS1RTPJPM4RDYRHO30DHZGUWICMTNN";
@@ -122,7 +124,7 @@ function AppViewModel() {
     self.locationList.push( new Location(locationItem));
   });
 
-  this.filteredList = ko.computed(function () {
+  self.filteredList = ko.computed(function () {
     var filter = self.locationInput().toLowerCase();
 
     if (!filter) {
@@ -139,8 +141,8 @@ function AppViewModel() {
     });
     }
   }, self);
-  this.mapElem = document.getElementById('map');
-  this.mapElem.style.height = window.innerHeight - 50;
+  self.mapElem = document.getElementById('map');
+  self.mapElem.style.height = window.innerHeight - 50;
 }
 
 // --- Initalize Application.
