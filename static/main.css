@@ -7,12 +7,6 @@ body {
 	height: 100%;
 	display: flex;
 }
-.list {
-	float: right
-	order: 1;
-	flex-grow: 1;
-	background-color: #002b36;
-}
 .map {
 	order: 2;
 	flex-grow: 4;
@@ -22,6 +16,12 @@ body {
 }
 .u-pull-right {
   float: right;
+}
+.list {
+	float: right
+	order: 1;
+	flex-grow: 0.2;
+	background-color: #002b36;
 }
 .search {
 	width: 100%;
@@ -43,7 +43,7 @@ body {
     background-color: #fdf6e3;
 }
 
-@media only screen and (max-device-width : 900px), only screen and (max-width : 900px)  {
+@media only screen and (max-device-width : 800px), only screen and (max-width : 800px)  {
 
 .app {
 	flex-direction: column;

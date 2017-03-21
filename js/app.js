@@ -1,5 +1,3 @@
-'use strict';
-
 // --- Initial Location Data.
 var initLocations = [
   {
@@ -39,6 +37,54 @@ var initLocations = [
 var map;
 var ClientID;
 var ClientSecret;
+
+// --- View Model.
+function AppViewModel() {
+
+  // Setting This
+  var self = this
+
+  // Declaring Observables
+  self.locationInput = ko.observable("");
+
+  self.locationList = ko.observableArray([]);
+
+  // Foursquare ClientID && ClientSecret
+  ClientID = "ISJFZIOWGYDLS0TDOJBS1RTPJPM4RDYRHO30DHZGUWICMTNN";
+  ClientSecret = "Y1QAZNCN1Q3AAUBB2KZU0ZOSLO3UKMBLORWV5M5BXW33X4YF";
+
+  // Initial Map
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 39.305, lng: -76.617},
+    zoom: 16
+  });
+
+  // Map Handler
+  initLocations.forEach(function(locationItem) {
+    self.locationList.push(new Location(locationItem));
+  });
+
+  // List
+  self.filteredList = ko.computed(function () {
+    var filter = self.locationInput().toLowerCase();
+
+    if (!filter) {
+      self.locationList().forEach(function(locationItem) {
+        locationItem.visible(true);
+      });
+      return self.locationList();
+  } else {
+    return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
+      var string = locationItem.name.toLowerCase();
+      var result = (string.search(filter) >= 0);
+      locationItem.visible(result);
+      return result;
+    });
+    }
+  }, self);
+  self.mapElem = document.getElementById('map');
+  self.mapElem.style.height = window.innerHeight - 50;
+}
 
 // --- Location information and foursquare URLJSON.
 var Location = function(data) {
@@ -115,54 +161,6 @@ var Location = function(data) {
 		google.maps.event.trigger(self.marker, 'click');
 	};
 };
-
-// --- View Model.
-function AppViewModel() {
-
-  // Setting This
-  var self = this
-
-  // Declaring Observables
-  self.locationInput = ko.observable("");
-
-  self.locationList = ko.observableArray([]);
-
-  // Foursquare ClientID && ClientSecret
-  ClientID = "ISJFZIOWGYDLS0TDOJBS1RTPJPM4RDYRHO30DHZGUWICMTNN";
-  ClientSecret = "Y1QAZNCN1Q3AAUBB2KZU0ZOSLO3UKMBLORWV5M5BXW33X4YF";
-
-  // Initial Map
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 39.305, lng: -76.617},
-    zoom: 16
-  });
-
-  // Map Handler
-  initLocations.forEach(function(locationItem) {
-    self.locationList.push(new Location(locationItem));
-  });
-
-  // List
-  self.filteredList = ko.computed(function () {
-    var filter = self.locationInput().toLowerCase();
-
-    if (!filter) {
-      self.locationList().forEach(function(locationItem) {
-        locationItem.visible(true);
-      });
-      return self.locationList();
-  } else {
-    return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
-      var string = locationItem.name.toLowerCase();
-      var result = (string.search(filter) >= 0);
-      locationItem.visible(result);
-      return result;
-    });
-    }
-  }, self);
-  self.mapElem = document.getElementById('map');
-  self.mapElem.style.height = window.innerHeight - 50;
-}
 
 // --- Initalize Application.
 function initApp() {
