@@ -15,12 +15,16 @@ body {
 	height: 1000px;
 }
 .u-pull-right {
-  float: right;
+	box-sizing: border-box;
+	background-color: #002b36;
+	text-align: center;
+	margin: 2px;
+	padding: 2px;
 }
 .list {
-	float: right
+	float: right;
 	order: 1;
-	flex-grow: 0.2;
+	flex-grow: 0.;
 	background-color: #002b36;
 }
 .search {
@@ -38,6 +42,11 @@ body {
 	padding: 0;
 }
 .shops {
+    margin: 2px;
+    padding: 2px;
+    background-color: #fdf6e3;
+}
+.bhtitle {
     margin: 2px;
     padding: 2px;
     background-color: #fdf6e3;
