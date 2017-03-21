@@ -40,20 +40,19 @@ var map;
 var ClientID;
 var ClientSecret;
 
-
 // --- Location information and foursquare URLJSON.
 var Location = function(data) {
 
   // Setting Self
   var self = this;
-  this.name = data.name;
-  this.lat = data.lat;
-  this.long = data.long;
-  this.URL = "";
-  this.street = "";
-  this.city = "";
-  this.phone = "";
-  this.visible = ko.observable(true);
+  self.name = data.name;
+  self.lat = data.lat;
+  self.long = data.long;
+  self.URL = "";
+  self.street = "";
+  self.city = "";
+  self.phone = "";
+  self.visible = ko.observable(true);
 
   // Foursquare URL
   var foursquareURL = 'https://api.foursquare.com/v2/venues/search?ll='+ this.lat + ',' + this.long + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20160118' + '&query=' + this.name;
@@ -72,30 +71,30 @@ var Location = function(data) {
   });
 
   // Click
-  this.contentString = '<div class="info-window-content"><div class="title"><b>' + data.name + '</b></div>' +
+  self.contentString = '<div class="info-window-content"><div class="title"><b>' + data.name + '</b></div>' +
   '<div class="content"><a href="' + self.URL +'">' + self.URL + '</a></div>' +
   '<div class="content">' + self.street + '</div>' +
   '<div class="content">' + self.city + '</div>';
 
   // Infowindow
-  this.infowindow = new google.maps.InfoWindow({content: self.contentString});
+  self.infowindow = new google.maps.InfoWindow({content: self.contentString});
 
   // Marker
-  this.marker = new google.maps.Marker({
+  self.marker = new google.maps.Marker({
     position: new google.maps.LatLng(data.lat, data.long),
     title: data.name,
     map: map
   })
 
   // Show Marker
-  this.showMarker = ko.computed(function() {
-    if(this.visible() === true) {
-      this.marker.setMap(map);
+  self.showMarker = ko.computed(function() {
+    if(self.visible() === true) {
+      self.marker.setMap(map);
     } else {
-      this.marker.setMap(null);
+      self.marker.setMap(null);
     }
     return true;
-  }, this);
+  }, self);
 }
 
 // --- View Model.
