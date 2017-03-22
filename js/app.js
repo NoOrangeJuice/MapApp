@@ -161,12 +161,12 @@ var Location = function(data) {
 	};
 };
 
-// --- Initalize Application.
-function initApp() {
-  ko.applyBindings(new AppViewModel());
-}
-
 // --- Error Handler.
 function errorHandler() {
   alert("Something has gone wrong, please check your connection and try again.")
+}
+
+// --- Initalize Application.
+function initApp() {
+  ko.applyBindings(new AppViewModel());
 }
